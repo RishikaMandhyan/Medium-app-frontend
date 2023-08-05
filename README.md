@@ -1,3 +1,9 @@
+Levels completed in the frontend part:
+Level 1, Level 2 and Level 3 done completely
+For Level 4, Subscriptions part done
+For Level 5, Save for Later part done
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
