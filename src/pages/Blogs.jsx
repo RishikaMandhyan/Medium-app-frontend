@@ -1,6 +1,3 @@
-import { Blog } from "../components/Blog";
-import { SimilarAuthorPosts } from "../components/SimilarAuthorPosts";
-import { Profile } from "../components/Profile";
 import {
   SearchBar,
   FilterCategoryDropdown,
@@ -8,14 +5,15 @@ import {
   TodoList,
   CancelSearch,
 } from "../components/Home.jsx";
+import { useLocation } from "react-router-dom";
+import { CategoryList } from "../components/CategoryList.jsx";
 import UserList from "../components/UserList.jsx";
 import { Link } from "react-router-dom";
+import { TopPosts } from "../components/TopPosts.jsx";
 import { SavedPosts } from "../components/SavedPosts.jsx";
 import { LikedBlogs } from "../components/LikedBlogs.jsx";
+import { RecommendedBlogs } from "../components/RecommendedBlogs.jsx";
 import { styled } from "styled-components";
-import { TopPosts } from "../components/TopPosts.jsx";
-import { CategoryList } from "../components/CategoryList.jsx";
-import { Plan_popup } from "../components/Plan_popup";
 
 const Master_container = styled.div`
   display: flex;
@@ -48,15 +46,15 @@ const Container2 = styled.div`
 const Container3 = styled.div`
   display: flex;
   flex-direction: column;
-  width: 80%;
-  padding: 20px 70px;
+  width: 70%;
+  padding: 20px 50px;
   height: fit-content;
   ${"" /* background-color: yellow; */}
 `;
 const Container4 = styled.div`
   display: flex;
   flex-direction: column;
-  width: 20%;
+  width: 30%;
   padding: 20px;
   height: fit-content;
   border-left: 1px solid #bfc0c1;
@@ -84,19 +82,10 @@ const C2 = styled.div`
   display: flex;
 `;
 
-export const Blogpage = (props) => {
+function Blogs(props) {
   return (
     <>
       <Master_container>
-        {props.currentuser.views > props.currentuser.plan_id ? (
-          <Plan_popup
-            users={props.users}
-            setUsers={props.setUsers}
-            currentuser={props.currentuser}
-            setCurrentuser={props.setCurrentuser}
-          />
-        ) : null}
-
         <Navbar_container>
           <Navheading>
             <Link
@@ -131,34 +120,23 @@ export const Blogpage = (props) => {
 
         <Container2>
           <Container3>
-            {/* <ViewTaskDropdown blogs={props.blogs} setBlogs={props.setBlogs}/> */}
+            <ViewTaskDropdown blogs={props.blogs} setBlogs={props.setBlogs} />
 
-            <Blog
-              user_follower={props.user_follower}
-              setUserfollower={props.setUserfollower}
-              users={props.users}
-              setUsers={props.setUsers}
-              categories={props.categories}
+            <TodoList
               currentuser={props.currentuser}
               setCurrentuser={props.setCurrentuser}
               blogs={props.blogs}
               setBlogs={props.setBlogs}
               input={props.input}
               setInput={props.setInput}
-              content={props.content}
-              setContent={props.setContent}
-              file={props.file}
-              setFile={props.setFile}
               blog_user_likes={props.blog_user_likes}
               setBlogUserLikes={props.setBlogUserLikes}
               blog_user_saves={props.blog_user_saves}
               setBlogUserSaves={props.setBlogUserSaves}
             />
           </Container3>
-
           <Container4>
-            <SimilarAuthorPosts blogs={props.blogs} />
-            {/* <CategoryList categories={props.categories}/> */}
+            <CategoryList categories={props.categories} />
             <TopPosts blogs={props.blogs} />
             <UserList
               user_follower={props.user_follower}
@@ -168,6 +146,14 @@ export const Blogpage = (props) => {
               users={props.users}
               setUsers={props.setUsers}
             />
+
+            <RecommendedBlogs
+              blogs={props.blogs}
+              currentuser={props.currentuser}
+              blog_user_likes={props.blog_user_likes}
+              blog_user_saves={props.blog_user_saves}
+            />
+
             <SavedPosts
               blogs={props.blogs}
               currentuser={props.currentuser}
@@ -186,4 +172,6 @@ export const Blogpage = (props) => {
       </Master_container>
     </>
   );
-};
+}
+
+export default Blogs;
